@@ -248,7 +248,7 @@ export const GlobalStyle = createGlobalStyle`
 `
 ```
 
-You'll probably want to call this on your root - `layout.jsx` is a good place to start
+You'll probably want to render this in your root - `layout.jsx` is a good place to start
 
 in `src/layout.jsx`
 ```javascript
@@ -365,7 +365,7 @@ export const GlobalStyle = createGlobalStyle`
 import { ThemeManagerContext } from "gatsby-styled-components-dark-mode"
 import React, { useContext } from "react"
 import styled, { withTheme } from "styled-components"
-import { GlobalStyle } from "../utils/theme"
+import { GlobalStyle } from "./theme"
 
 const MainHeading = styled.h2`
   color: rgb(${props => props.theme.palette.mainBrand});
@@ -381,7 +381,7 @@ export const Layout = withTheme((props) => {
       <GlobalStyle theme={theme} />
       <header>
         <MainHeading>
-          <a href={`#}>Gatsby Dark Theme</a>
+          <a href={'#'}>Gatsby Dark Theme</a>
         </MainHeading>
         <div>
           <label>
