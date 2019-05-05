@@ -17,7 +17,7 @@
     "dark-theme"
   ],
   "author": "Greg Perlman",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
   },
   "typings": "index.d.ts",
