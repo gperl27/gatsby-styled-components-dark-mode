@@ -377,7 +377,7 @@ export const Layout = withTheme((props) => {
   const themeContext = useContext(ThemeManagerContext)
 
   return (
-    <Content>
+    <div>
       <GlobalStyle theme={theme} />
       <header>
         <MainHeading>
@@ -395,10 +395,13 @@ export const Layout = withTheme((props) => {
         </div>
       </header>
       <main>{children}</main>
-    </Content>
+    </div>
   )
 })
 ```
+
+### Typescript Example
+https://github.com/gperl27/website
     
 ## Roadmap
 
