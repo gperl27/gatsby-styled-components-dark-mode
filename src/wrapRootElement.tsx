@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import { StyledThemeProvider } from "./StyledThemeProvider";
 import { ThemeManagerProvider } from "./ThemeManager";
 
-interface GatsbyConfigProps {
+interface ThemeConfigProps {
   dark?: object;
   light?: object;
 }
@@ -11,21 +11,16 @@ interface GatsbyRootProps {
   element: ReactNode;
 }
 
-interface Props {
-  gatsbyProps: GatsbyRootProps;
-  themeConfig: GatsbyConfigProps;
-}
-
-export const wrapRootElement = (props: Props) => {
-  const {
-    gatsbyProps: { element },
-    themeConfig: { dark = {}, light = {} }
-  } = props;
+export const wrapRootElement = (
+  gatsbyRootProps: GatsbyRootProps,
+  themeProps: ThemeConfigProps
+) => {
+  const { dark = {}, light = {} } = themeProps;
 
   return (
     <ThemeManagerProvider>
       <StyledThemeProvider lightTheme={light} darkTheme={dark}>
-        {element}
+        {gatsbyRootProps.element}
       </StyledThemeProvider>
     </ThemeManagerProvider>
   );
