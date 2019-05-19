@@ -23,10 +23,12 @@
       "node"
     ],
     "esModuleInterop": true,
-    "noEmit": true
+    "noEmit": false,
+    "noEmitOnError": true,
+    "outDir": "."
   },
   "include": [
-    "./src/*"
+    "./src/**/*"
   ],
   "exclude": [
     "./node_modules/*"

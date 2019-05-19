@@ -4,7 +4,7 @@
   "description": "A Gatsby plugin for toggling dark mode and injecting themes using styled-components",
   "main": "index.js",
   "scripts": {
-    "build": "babel src --out-dir .",
+    "build": "tsc -b",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

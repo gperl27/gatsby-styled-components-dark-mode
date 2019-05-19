@@ -2,6 +2,10 @@
 node_modules/
 yarn-error.log
 package-lock.json
-/*.js
 
 *.idea
+
+/*.d.ts
+/*.d.ts.map
+/*.js
+/*.js.*
