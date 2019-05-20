@@ -5,6 +5,12 @@
       {
         "browser": true
       }
+    ],
+    [
+      "@babel/preset-typescript",
+      {
+        "isTsx": true
+      }
     ]
   ]
 }
