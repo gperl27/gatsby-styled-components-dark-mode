@@ -2,6 +2,9 @@
 
 A Gatsby plugin that handles injecting a dark and light theme, *as well as* functionality for toggling between them. It also persists the state of your users' dark option in their browsers.
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![npm version](https://badge.fury.io/js/gatsby-styled-components-dark-mode.svg)](https://badge.fury.io/js/gatsby-styled-components-dark-mode)
+
 ## Installation
 
 Install the package
