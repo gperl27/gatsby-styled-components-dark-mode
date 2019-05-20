@@ -96,7 +96,7 @@ export default darkTheme;
 ```
 
 in `src/lightTheme.js`
-```
+```javascript
 const lightTheme = {
     mainColor: 'pampas',
     buttonColor: 'shadyLady',
@@ -289,7 +289,7 @@ import { createGlobalStyle } from "styled-components"
 
 // I'm using rgb numbers here for easily using rgba styling throughout the app
 // You can put hexcodes, names, or any other definitions that fits the context of your app
-const ColorPalette = {
+const colorPalette = {
   lightShades: "242, 242, 241",
   lightAccent: "139, 142, 149",
   mainBrand: "140, 100, 88",
@@ -303,38 +303,38 @@ const ColorPalette = {
 
 const baseTheme = {
   actions: {
-    error: ColorPalette.error,
-    info: ColorPalette.darkShades,
-    primary: ColorPalette.mainBrand,
-    success: ColorPalette.success,
-    warning: ColorPalette.warning,
+    error: colorPalette.error,
+    info: colorPalette.darkShades,
+    primary: colorPalette.mainBrand,
+    success: colorPalette.success,
+    warning: colorPalette.warning,
   },
   palette: {
-    darkAccent: ColorPalette.darkAccent,
-    darkShades: ColorPalette.darkShades,
-    lightAccent: ColorPalette.lightAccent,
-    lightShades: ColorPalette.lightShades,
-    mainBrand: ColorPalette.mainBrand,
+    darkAccent: colorPalette.darkAccent,
+    darkShades: colorPalette.darkShades,
+    lightAccent: colorPalette.lightAccent,
+    lightShades: colorPalette.lightShades,
+    mainBrand: colorPalette.mainBrand,
   },
 }
 
 export const darkTheme = {
   ...baseTheme,
   global: {
-    bg: ColorPalette.darkShades,
-    color: ColorPalette.lightShades,
-    link: ColorPalette.mainBrand,
-    linkHover: ColorPalette.lightAccent,
+    bg: colorPalette.darkShades,
+    color: colorPalette.lightShades,
+    link: colorPalette.mainBrand,
+    linkHover: colorPalette.lightAccent,
   },
 }
 
 export const lightTheme = {
   ...baseTheme,
   global: {
-    bg: ColorPalette.lightShades,
-    color: ColorPalette.darkShades,
-    link: ColorPalette.mainBrand,
-    linkHover: ColorPalette.darkAccent,
+    bg: colorPalette.lightShades,
+    color: colorPalette.darkShades,
+    link: colorPalette.mainBrand,
+    linkHover: colorPalette.darkAccent,
   },
 }
 
@@ -405,11 +405,7 @@ https://github.com/gperl27/website
     
 ## Roadmap
 
-- typescript
-
-I actually *de-typed* the the plugin files to make the barrier of entry to building the plugin more trivial. 
-
-I would like to to bring back such type-safety.
+- ~~typescript~~
 
 - hot-reload
 
