@@ -35,7 +35,7 @@ export const ThemeManagerProvider = (props: Props) => {
     const latestTheme = localStorageTheme && JSON.parse(localStorageTheme);
     if (latestTheme) {
       setIsDark(latestTheme);
-    } else if (supportsDarkMode()) {
+    } else if (supportsDarkMode() && latestTheme) {
       setIsDark(true);
     }
   }, []);
