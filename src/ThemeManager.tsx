@@ -31,10 +31,10 @@ export const ThemeManagerProvider = (props: Props) => {
   };
 
   useEffect(() => {
-    const localStorageTheme = localStorage.getItem("dark");
-    const latestTheme = localStorageTheme && JSON.parse(localStorageTheme);
-    if (latestTheme) {
-      setIsDark(latestTheme);
+    const themeFromLocalStorage = localStorage.getItem("dark");
+
+    if (typeof themeFromLocalStorage === 'string') {
+      setIsDark(JSON.parse(themeFromLocalStorage));
     } else if (supportsDarkMode()) {
       setIsDark(true);
     }
