@@ -8,7 +8,7 @@ interface Props {
 interface ThemeManager {
   isDark: boolean;
 
-  toggleDark(): void;
+  toggleDark(value?: boolean): void;
 }
 
 const defaultState: ThemeManager = {
@@ -24,8 +24,8 @@ const supportsDarkMode = () =>
 export const ThemeManagerProvider = (props: Props) => {
   const [isDark, setIsDark] = useState(false);
 
-  const toggleDark = () => {
-    const toggledTheme = !isDark;
+  const toggleDark = (value?: boolean) => {
+    const toggledTheme = value ?? !isDark;
     setIsDark(toggledTheme);
     localStorage.setItem("dark", JSON.stringify(toggledTheme));
   };

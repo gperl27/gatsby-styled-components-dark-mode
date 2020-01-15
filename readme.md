@@ -167,7 +167,7 @@ Consuming the context will get you access to
 | prop | type | description |
 | --- | --- | --- |
 | isDark | boolean | state that describes if your app is in dark mode or not |
-| toggleDark | () => void | function that toggles dark/light mode |
+| toggleDark | (value?: boolean) => void | function that toggles dark/light mode |
 
 #### Example
 
@@ -399,6 +399,29 @@ export const Layout = withTheme((props) => {
       </header>
       <main>{children}</main>
     </div>
+  )
+})
+```
+
+### Set Dark Mode as default
+
+In case you want to set the dark mode as your default theme, follow the
+following example.
+
+`src/layout.js`
+```javascript
+import { ThemeManagerContext } from "gatsby-styled-components-dark-mode"
+import React, { useContext, useEffect } from "react"
+import styled, { withTheme } from "styled-components"
+
+export const Layout = withTheme((props) => {
+  const themeContext = useContext(ThemeManagerContext)
+
+  // Add this line
+  useEffect(() => themeContext.toggleDark(true), [])
+
+  return (
+    ...
   )
 })
 ```
