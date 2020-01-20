@@ -8,6 +8,10 @@
     "lint": "eslint src/*",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gperl27/gatsby-styled-components-dark-mode.git"
+  },
   "keywords": [
     "gatsby",
     "gatsby-plugin",
