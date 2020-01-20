@@ -1,11 +1,8 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "es6"
-    ],
-    "sourceMap": true,
+    "lib": ["dom", "es6"],
+    "sourceMap": false,
     "jsx": "react",
     "noUnusedLocals": true,
     "forceConsistentCasingInFileNames": true,
@@ -13,25 +10,17 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "declaration": true,
-    "declarationMap": true,
+    "declarationMap": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "typeRoots": [
-      "./node_modules/@types"
-    ],
-    "types": [
-      "node"
-    ],
+    "typeRoots": ["./node_modules/@types"],
+    "types": ["node"],
     "esModuleInterop": true,
     "noEmit": false,
     "noEmitOnError": true,
     "outDir": ".",
     "skipLibCheck": true
   },
-  "include": [
-    "./src/**/*"
-  ],
-  "exclude": [
-    "./node_modules/*"
-  ]
+  "include": ["./src/**/*"],
+  "exclude": ["./node_modules/*"]
 }
