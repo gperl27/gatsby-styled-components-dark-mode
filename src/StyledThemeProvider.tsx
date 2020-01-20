@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React, { ReactNode, useContext } from "react";
 import { ThemeProvider } from "styled-components";
 import { ThemeManagerContext } from "./ThemeManager";
 
 interface Props {
-  children: any;
+  children: ReactNode;
   darkTheme: object;
   lightTheme: object;
 }
@@ -17,5 +17,9 @@ export const StyledThemeProvider = (props: Props) => {
   const currentTheme = isDark ? darkTheme : lightTheme;
   const theme = { ...currentTheme, isDark };
 
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+  return (
+    <ThemeProvider theme={theme}>
+      <>{children}</>
+    </ThemeProvider>
+  );
 };
