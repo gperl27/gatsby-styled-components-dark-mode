@@ -158,7 +158,7 @@ const MyLightOrDarkStyledComponent = styled.div`
 
 ### Toggling the theme
 
-Somewhere in your app, you'll want to provide functionality to actually change the theme from one theme to the other.
+Somewhere in your app, you'll want to provide functionality to actually change the theme from one theme to the other, or to respect the current system dark mode setting.
 
 The plugin exposes this functionality through `ThemeManagerContext`
 
@@ -168,8 +168,10 @@ Consuming the context will get you access to
 | --- | --- | --- |
 | isDark | boolean | state that describes if your app is in dark mode or not |
 | toggleDark | (value?: boolean) => void | function that toggles dark/light mode |
+| themeSetting | ThemeSetting | the current theme setting - either LIGHT, DARK or SYSTEM |
+| changeThemeSetting | (setting: ThemeSetting) => void | function that allows setting dark mode, light mode or system-setting mode |
 
-#### Example
+#### Example - light/dark mode toggle
 
 in a presumed `src/component/layout.tsx`
 ```javascript
@@ -187,6 +189,52 @@ export const Layout = (props) => {
           checked={themeContext.isDark}
         />{" "}
         Dark mode
+      </label>
+    </div>
+  )
+}
+```
+
+#### Example - light/dark/system mode toggle
+
+in a presumed `src/component/layout.tsx`
+```javascript
+import { ThemeManagerContext, ThemeSetting } from "gatsby-styled-components-dark-mode"
+
+export const Layout = (props) => {
+  const themeContext = useContext(ThemeManagerContext)
+  const onThemeSettingChanged = (ev) => themeContext.changeThemeSetting(ev.target.value)
+
+  return (
+    <div>
+      <label>
+        <input
+          type="radio"
+          value={ThemeSetting.LIGHT}
+          onChange={onThemeSettingChanged}
+          checked={themeContext.themeSetting == ThemeSetting.LIGHT}
+        />{" "}
+        Light mode
+      </label>
+      <br/>
+      <label>
+        <input
+          type="radio"
+          value={ThemeSetting.DARK}
+          onChange={onThemeSettingChanged}
+          checked={themeContext.themeSetting == ThemeSetting.DARK}
+        />{" "}
+        Dark mode
+      </label>
+      <br/>
+      <label>
+        <input
+          type="radio"
+          value={ThemeSetting.SYSTEM}
+          onChange={onThemeSettingChanged}
+          checked={themeContext.themeSetting == ThemeSetting.SYSTEM}
+        />{" "}
+        Use system setting
       </label>
     </div>
   )
