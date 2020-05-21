@@ -1,6 +1,8 @@
 # Gatsby Styled-Components Dark Mode
 
-A Gatsby plugin that handles injecting a dark and light theme, *as well as* functionality for toggling between them. It also persists the state of your users' dark option in their browsers.
+A Gatsby plugin that handles injecting a dark and light theme, *as well as* functionality for toggling between them. It also persists the state of your users' dark options in their browsers. 
+
+As of version 1.2, the plugin now supports an auto-theming api.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![npm version](https://badge.fury.io/js/gatsby-styled-components-dark-mode.svg)](https://badge.fury.io/js/gatsby-styled-components-dark-mode)
