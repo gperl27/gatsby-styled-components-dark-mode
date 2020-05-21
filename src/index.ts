@@ -1,3 +1,3 @@
-import { ThemeManagerContext } from "./ThemeManager"
+import { ThemeManagerContext, ThemeSetting } from "./ThemeManager"
 
-export { ThemeManagerContext }
+export { ThemeManagerContext, ThemeSetting }
