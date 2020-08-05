@@ -1,5 +1,5 @@
 import React from "react";
-import { createContext, useState, ReactNode, useEffect } from "react";
+import { createContext, useState, ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
@@ -15,10 +15,10 @@ const DarkThemeKey = 'dark';
 
 interface ThemeManager {
   isDark: boolean;
-  toggleDark(value?: boolean): void;
-
   themeSetting: ThemeSetting;
+  toggleDark(value?: boolean): void;
   changeThemeSetting: (setting: ThemeSetting) => void;
+  initThemeFromStorage: () => void
 }
 
 const defaultState: ThemeManager = {
@@ -27,6 +27,7 @@ const defaultState: ThemeManager = {
 
   themeSetting: ThemeSetting.SYSTEM,
   changeThemeSetting: (_: ThemeSetting) => undefined,
+  initThemeFromStorage: () => undefined
 };
 
 export const ThemeManagerContext = createContext(defaultState);
@@ -63,7 +64,7 @@ export const ThemeManagerProvider = (props: Props) => {
     localStorage.setItem(DarkThemeKey, setting)
   }
 
-  useEffect(() => {
+  const initThemeFromStorage = () => {
     const themeFromLocalStorage = localStorage.getItem(DarkThemeKey);
 
     if (!themeFromLocalStorage) {
@@ -78,7 +79,7 @@ export const ThemeManagerProvider = (props: Props) => {
       // Fallback if the stored theme is the legacy "true"/"false"
       changeThemeSetting(JSON.parse(themeFromLocalStorage) ? ThemeSetting.DARK : ThemeSetting.LIGHT)
     }
-  }, []);
+  }
 
   return (
     <ThemeManagerContext.Provider
@@ -87,6 +88,7 @@ export const ThemeManagerProvider = (props: Props) => {
         toggleDark,
         themeSetting,
         changeThemeSetting,
+        initThemeFromStorage
       }}
     >
       {props.children}
