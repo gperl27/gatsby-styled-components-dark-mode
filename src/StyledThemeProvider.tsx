@@ -10,12 +10,12 @@ interface Props {
 
 export const StyledThemeProvider = (props: Props) => {
   const { children, darkTheme, lightTheme } = props;
-
-  const themeManagerContext = useContext(ThemeManagerContext);
-
-  const isDark = themeManagerContext.isDark;
+  const { isDark, didLoad } = useContext(ThemeManagerContext);
   const currentTheme = isDark ? darkTheme : lightTheme;
-  const theme = { ...currentTheme, isDark };
+  const theme = {
+    isDark,
+    ...(didLoad ? currentTheme : transformTheme(currentTheme))
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -23,3 +23,16 @@ export const StyledThemeProvider = (props: Props) => {
     </ThemeProvider>
   );
 };
+
+const transformTheme = (theme: { [key: string]: any }) => {
+  const newTheme: { [key: string]: any } = {}
+  Object.keys(theme).forEach(key => {
+    if (typeof theme[key] === 'object') {
+      newTheme[key] = transformTheme(theme[key])
+    } else {
+      newTheme[key] = `var(--${key})`
+    }
+  })
+
+  return newTheme
+}
