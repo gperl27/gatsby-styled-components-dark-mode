@@ -1,5 +1,4 @@
-import React from "react";
-import { createContext, useState, ReactNode } from "react";
+import React, { createContext, useState, ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
