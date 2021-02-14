@@ -1,10 +1,14 @@
 import React from "react";
 import { DarkThemeKey, ThemeSetting } from "./ThemeManager";
+import { ThemeConfigProps } from "./wrapRootElement";
+import { RenderBodyArgs } from "gatsby";
 
-const MagicScriptTag = (props: any) => {
-    const codeToRunOnClient = `
+const MagicScriptTag = (props: { theme: ThemeConfigProps }) => {
+  const codeToRunOnClient = `
         (function() {
-            const themeFromLocalStorage = localStorage.getItem('${DarkThemeKey}') || '${ThemeSetting.SYSTEM}';
+            const themeFromLocalStorage = localStorage.getItem('${DarkThemeKey}') || '${
+    ThemeSetting.SYSTEM
+  }';
             const systemDarkModeSetting = () => window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
             const isDarkModeActive = () => {
                 return !!systemDarkModeSetting()?.matches;
@@ -12,7 +16,9 @@ const MagicScriptTag = (props: any) => {
             let colorMode;
             switch (themeFromLocalStorage) {
                 case '${ThemeSetting.SYSTEM}': {
-                  colorMode = isDarkModeActive() ? '${ThemeSetting.DARK}' : '${ThemeSetting.LIGHT}'
+                  colorMode = isDarkModeActive() ? '${ThemeSetting.DARK}' : '${
+    ThemeSetting.LIGHT
+  }'
                   break
                 }
                 case '${ThemeSetting.DARK}':
@@ -45,10 +51,15 @@ const MagicScriptTag = (props: any) => {
             root.style.setProperty('--initial-color-mode', colorMode);
         })()
     `;
-    // eslint-disable-next-line react/no-danger
-    return <script dangerouslySetInnerHTML={{ __html: codeToRunOnClient }} />;
+
+  return <script dangerouslySetInnerHTML={{ __html: codeToRunOnClient }} />;
 };
 
-export const onRenderBody = ({ setPreBodyComponents }: any, theme: any) => {
-    setPreBodyComponents(<MagicScriptTag theme={theme} />);
+export const onRenderBody = (
+  { setPreBodyComponents }: RenderBodyArgs,
+  theme: ThemeConfigProps
+) => {
+  setPreBodyComponents([
+    <MagicScriptTag key="theme-injection" theme={theme} />,
+  ]);
 };

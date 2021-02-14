@@ -4,8 +4,8 @@ import { ThemeManagerContext } from "./ThemeManager";
 
 interface Props {
   children: ReactNode;
-  darkTheme: object;
-  lightTheme: object;
+  darkTheme: Record<string, unknown>;
+  lightTheme: Record<string, unknown>;
 }
 
 export const StyledThemeProvider = (props: Props) => {
@@ -14,8 +14,8 @@ export const StyledThemeProvider = (props: Props) => {
   const currentTheme = isDark ? darkTheme : lightTheme;
   const theme = {
     isDark,
-    ...(didLoad ? currentTheme : transformTheme(currentTheme))
-  }
+    ...(didLoad ? currentTheme : transformTheme(currentTheme)),
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -24,15 +24,18 @@ export const StyledThemeProvider = (props: Props) => {
   );
 };
 
-const transformTheme = (theme: { [key: string]: any }) => {
-  const newTheme: { [key: string]: any } = {}
-  Object.keys(theme).forEach(key => {
-    if (typeof theme[key] === 'object') {
-      newTheme[key] = transformTheme(theme[key])
+const transformTheme = (theme: Record<string, unknown>) => {
+  const newTheme: { [key: string]: string | Record<string, unknown> } = {};
+  Object.keys(theme).forEach((key) => {
+    const value = theme[key];
+    if (typeof value === "object" && !!value) {
+      newTheme[key] = transformTheme(
+        value as { [key: string]: Record<string, unknown> }
+      );
     } else {
-      newTheme[key] = `var(--${key})`
+      newTheme[key] = `var(--${key})`;
     }
-  })
+  });
 
-  return newTheme
-}
+  return newTheme;
+};

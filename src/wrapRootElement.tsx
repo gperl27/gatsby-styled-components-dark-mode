@@ -2,9 +2,9 @@ import React, { ReactNode } from "react";
 import { StyledThemeProvider } from "./StyledThemeProvider";
 import { ThemeManagerProvider } from "./ThemeManager";
 
-interface ThemeConfigProps {
-  dark?: object;
-  light?: object;
+export interface ThemeConfigProps {
+  dark?: Record<string, unknown>;
+  light?: Record<string, unknown>;
 }
 
 interface GatsbyRootProps {

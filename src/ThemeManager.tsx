@@ -6,19 +6,19 @@ interface Props {
 }
 
 export enum ThemeSetting {
-  LIGHT = 'light',
-  DARK = 'dark',
-  SYSTEM = 'system',
+  LIGHT = "light",
+  DARK = "dark",
+  SYSTEM = "system",
 }
 
-export const DarkThemeKey = 'theme';
+export const DarkThemeKey = "theme";
 
 interface ThemeManager {
   isDark?: boolean;
   themeSetting: ThemeSetting;
   toggleDark(value?: boolean): void;
   changeThemeSetting: (setting: ThemeSetting) => void;
-  didLoad: boolean
+  didLoad: boolean;
 }
 
 const defaultState: ThemeManager = {
@@ -26,12 +26,13 @@ const defaultState: ThemeManager = {
   didLoad: false,
   themeSetting: ThemeSetting.SYSTEM,
   toggleDark: () => undefined,
-  changeThemeSetting: (_: ThemeSetting) => undefined,
+  changeThemeSetting: () => undefined,
 };
 
 export const ThemeManagerContext = createContext(defaultState);
 
-const systemDarkModeSetting = () => window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+const systemDarkModeSetting = () =>
+  window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
 const isDarkModeActive = () => {
   // Assume that dark mode is not active if there's no system dark mode setting available
   return !!systemDarkModeSetting()?.matches;
@@ -45,35 +46,35 @@ export const ThemeManagerProvider = (props: Props) => {
   React.useEffect(() => {
     const root = window.document.documentElement;
     const initialColorValue = root.style.getPropertyValue(
-      '--initial-color-mode'
+      "--initial-color-mode"
     );
 
     setIsDark(initialColorValue === ThemeSetting.DARK);
-    setDidLoad(true)
+    setDidLoad(true);
   }, []);
 
   const toggleDark = (value?: boolean) => {
-    const newIsDark = value ?? !isDark
-    const theme = newIsDark ? ThemeSetting.DARK : ThemeSetting.LIGHT
-    setIsDark(newIsDark)
-    setThemeSetting(theme)
-    localStorage.setItem(DarkThemeKey, theme)
+    const newIsDark = value ?? !isDark;
+    const theme = newIsDark ? ThemeSetting.DARK : ThemeSetting.LIGHT;
+    setIsDark(newIsDark);
+    setThemeSetting(theme);
+    localStorage.setItem(DarkThemeKey, theme);
   };
 
   const changeThemeSetting = (setting: ThemeSetting) => {
     switch (setting) {
       case ThemeSetting.SYSTEM: {
-        setIsDark(isDarkModeActive())
-        break
+        setIsDark(isDarkModeActive());
+        break;
       }
       case ThemeSetting.LIGHT:
       case ThemeSetting.DARK:
-        setIsDark(setting === ThemeSetting.DARK)
-        break
+        setIsDark(setting === ThemeSetting.DARK);
+        break;
     }
     setThemeSetting(setting);
-    localStorage.setItem(DarkThemeKey, setting)
-  }
+    localStorage.setItem(DarkThemeKey, setting);
+  };
 
   return (
     <ThemeManagerContext.Provider
@@ -82,7 +83,7 @@ export const ThemeManagerProvider = (props: Props) => {
         toggleDark,
         themeSetting,
         changeThemeSetting,
-        didLoad
+        didLoad,
       }}
     >
       {props.children}
