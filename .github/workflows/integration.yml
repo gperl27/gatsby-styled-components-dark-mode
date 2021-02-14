@@ -18,4 +18,4 @@ jobs:
       - name: Lint
         run: yarn lint
       - name: Typecheck
-        run: yarn typeheck
+        run: yarn typecheck
