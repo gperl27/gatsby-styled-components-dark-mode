@@ -1,17 +1,18 @@
 # Gatsby Styled-Components Dark Mode
 
-A Gatsby plugin that handles injecting a dark and light theme using styled components
-
-- Exposes functionality for toggling between dark and light theme
-- Also allows for using the system's theme
-- Automatically handles content flash when refreshing the page
-- Persists the state of your users' dark options in their browsers.
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![npm (tag)](https://img.shields.io/npm/v/gatsby-styled-components-dark-mode/latest)
 ![npm (tag)](https://img.shields.io/npm/v/gatsby-styled-components-dark-mode/next)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
+## About
+
+A Gatsby plugin that handles injecting a dark and light theme using styled components.
+
+- Exposes React hook for toggling between dark and light theme
+- Allows for using the system's theme
+- Automatically handles content flash when refreshing the page
+- Persists the state of your users' dark options in their browsers.
 
 ## Installation
 
@@ -133,7 +134,7 @@ module.exports = {
 
 ### Accessing the styles
 
-We can now utilize the power of styled-components. Any component wrapped in a `styled` or `css` has access to your theme!
+We can now utilize the power of styled-components. Any component wrapped in a `styled` or `css` has access to your theme.
 
 #### Inside of styled's template string `props`
 
@@ -181,12 +182,14 @@ Somewhere in your app, you'll want to provide functionality to actually change t
 
 The plugin exposes this functionality through a hook `useStyledDarkMode`:
 
-| prop               | type                            | description                                                                                                                                                                              |
-| ------------------ | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| isDark             | boolean?                        | State that describes if your app is in dark mode or not. Notice this can be undefined since we don't know is dark until the provider can parse the initial styles after the first paint. |
-| toggleDark         | (value?: boolean) => void       | Function that toggles dark/light mode.                                                                                                                                                   |
-| themeSetting       | ThemeSetting                    | The current theme setting - either `ThemeSetting.LIGHT`, `ThemeSetting.DARK` or `ThemeSetting.SYSTEM`                                                                                    |
-| changeThemeSetting | (setting: ThemeSetting) => void | Function that allows setting dark mode, light mode or system-setting mode                                                                                                                |
+#### `useStyledDarkMode` hook
+
+| prop               | type                            | description                                                                                                                                                                               |
+| ------------------ | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| isDark             | boolean?                        | State that describes if your app is in dark mode or not. Notice this can be undefined since we don't know `isDark` until the provider can parse the initial styles after the first paint. |
+| toggleDark         | (value?: boolean) => void       | Function that toggles dark/light mode.                                                                                                                                                    |
+| themeSetting       | ThemeSetting                    | The current theme setting - either `ThemeSetting.LIGHT`, `ThemeSetting.DARK` or `ThemeSetting.SYSTEM`                                                                                     |
+| changeThemeSetting | (setting: ThemeSetting) => void | Function that allows setting dark mode, light mode or system-setting mode                                                                                                                 |
 
 #### Example - light/dark mode toggle
 
@@ -195,17 +198,17 @@ in a presumed `src/component/layout.tsx`
 ```javascript
 import { useStyledDarkMode } from "gatsby-styled-components-dark-mode";
 
-export const Layout = (props) => {
-  const { isDark } = useStyledDarkMode();
+export const Layout = () => {
+  const { isDark, toggleDark } = useStyledDarkMode();
 
   return (
     <div>
       <label>
         <input
           type="checkbox"
-          onChange={() => themeContext.toggleDark()}
+          onChange={() => toggleDark()}
           checked={!!isDark}
-        />{" "}
+        />
         Dark mode
       </label>
     </div>
@@ -223,8 +226,8 @@ import {
   ThemeSetting,
 } from "gatsby-styled-components-dark-mode";
 
-export const Layout = (props) => {
-  const { changeThemeSetting } = useStyledDarkMode();
+export const Layout = () => {
+  const { changeThemeSetting, themeSetting } = useStyledDarkMode();
   const onThemeSettingChanged = (ev) => changeThemeSetting(ev.target.value);
 
   return (
@@ -234,8 +237,8 @@ export const Layout = (props) => {
           type="radio"
           value={ThemeSetting.LIGHT}
           onChange={onThemeSettingChanged}
-          checked={themeContext.themeSetting == ThemeSetting.LIGHT}
-        />{" "}
+          checked={themeSetting == ThemeSetting.LIGHT}
+        />
         Light mode
       </label>
       <br />
@@ -244,8 +247,8 @@ export const Layout = (props) => {
           type="radio"
           value={ThemeSetting.DARK}
           onChange={onThemeSettingChanged}
-          checked={themeContext.themeSetting == ThemeSetting.DARK}
-        />{" "}
+          checked={themeSetting == ThemeSetting.DARK}
+        />
         Dark mode
       </label>
       <br />
@@ -254,8 +257,8 @@ export const Layout = (props) => {
           type="radio"
           value={ThemeSetting.SYSTEM}
           onChange={onThemeSettingChanged}
-          checked={themeContext.themeSetting == ThemeSetting.SYSTEM}
-        />{" "}
+          checked={themeSetting == ThemeSetting.SYSTEM}
+        />
         Use system setting
       </label>
     </div>
@@ -311,7 +314,7 @@ in `src/layout.jsx`
 import { ThemeContext } from "styled-components";
 import { GlobalStyle } from "./theme";
 
-export const Layout = (props) => {
+export const Layout = () => {
   const theme = useContext(ThemeContext);
   return (
     <div>
@@ -461,6 +464,17 @@ export const Layout = (props) => {
 
 https://github.com/gperl27/website
 
+## Contributing
+
+This project uses [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) and leverages [semantic release](https://github.com/semantic-release/semantic-release) for versioning and distribution. It uses these tools out of the box.
+
+### Distribution channels
+
+- `@latest`
+  - Reflects current code in the `master` branch
+- `@next`
+  - Reflects current code in the `next` branch
+
 ## Roadmap
 
 - ~~typescript~~
@@ -476,14 +490,3 @@ Ideally, I would like to pass `{ global: "path/to/globalStyles }` where these st
 - live demo
 
 - default theme setup or scaffolding if people want it
-
-## Contributing
-
-This project uses [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) and leverages [semantic release](https://github.com/semantic-release/semantic-release) for versioning and distribution. It uses these tools out of the box.
-
-### Distribution channels
-
-- master
-  - Reflects current stable release under the `latest` tag
-- next
-  - Reflects experimental release under the `next` tag
