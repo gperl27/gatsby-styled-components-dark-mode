@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc -b",
+    "typecheck": "tsc --noEmit true",
     "lint": "eslint src/**/*.{ts,tsx}",
     "lint:fix": "lint --fix",
     "test": "echo \"e2e test\" && exit 1"
