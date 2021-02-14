@@ -7,7 +7,7 @@
     "build": "tsc -b",
     "lint": "eslint src/**/*.{ts,tsx}",
     "lint:fix": "lint --fix",
-    "test": "echo \"Error: test breaking \" && exit 1"
+    "test": "echo \"e2e test\" && exit 1"
   },
   "repository": {
     "type": "git",
