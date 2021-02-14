@@ -12,7 +12,7 @@ A Gatsby plugin that handles injecting a dark and light theme using styled compo
 - Exposes React hook for toggling between dark and light theme
 - Allows for using the system's theme
 - Automatically handles content flash when refreshing the page
-- Persists the state of your users' dark options in their browsers.
+- Persists the state of users' dark options in their browsers
 
 ## Installation
 
