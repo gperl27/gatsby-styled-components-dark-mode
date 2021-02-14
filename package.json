@@ -6,8 +6,7 @@
   "scripts": {
     "build": "tsc -b",
     "lint": "eslint src/*",
-    "test": "echo \"Error: test breaking change\" && exit 1",
-    "semantic-release": "semantic-release"
+    "test": "echo \"Error: test breaking change\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -41,7 +40,6 @@
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-react": "^7.13.0",
     "prettier": "^1.17.1",
-    "semantic-release": "^17.3.9",
     "typescript": "^3.7.4"
   }
 }
