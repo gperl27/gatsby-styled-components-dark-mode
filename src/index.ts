@@ -1,3 +1,4 @@
-import { ThemeManagerContext, ThemeSetting } from "./ThemeManager"
+import { ThemeSetting } from "./ThemeManager";
+import { useStyledDarkMode } from "./useStyledDarkMode";
 
-export { ThemeManagerContext, ThemeSetting }
+export { ThemeSetting, useStyledDarkMode };

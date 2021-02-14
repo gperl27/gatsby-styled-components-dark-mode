@@ -1,11 +1,10 @@
 import React, { ReactNode } from "react";
 import { StyledThemeProvider } from "./StyledThemeProvider";
 import { ThemeManagerProvider } from "./ThemeManager";
-import { InitialBootLoader } from "./InitialBootLoader";
 
-interface ThemeConfigProps {
-  dark?: object;
-  light?: object;
+export interface ThemeConfigProps {
+  dark?: Record<string, unknown>;
+  light?: Record<string, unknown>;
 }
 
 interface GatsbyRootProps {
@@ -20,11 +19,9 @@ export const wrapRootElement = (
 
   return (
     <ThemeManagerProvider>
-      <InitialBootLoader>
-        <StyledThemeProvider lightTheme={light} darkTheme={dark}>
-          {gatsbyRootProps.element}
-        </StyledThemeProvider>
-      </InitialBootLoader>
+      <StyledThemeProvider lightTheme={light} darkTheme={dark}>
+        {gatsbyRootProps.element}
+      </StyledThemeProvider>
     </ThemeManagerProvider>
   );
 };

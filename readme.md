@@ -1,27 +1,30 @@
 # Gatsby Styled-Components Dark Mode
 
-A Gatsby plugin that handles injecting a dark and light theme, *as well as* functionality for toggling between them. It also persists the state of your users' dark options in their browsers. 
-
-As of version 1.2, the plugin now supports an auto-theming api.
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![npm version](https://badge.fury.io/js/gatsby-styled-components-dark-mode.svg)](https://badge.fury.io/js/gatsby-styled-components-dark-mode)
+![npm (tag)](https://img.shields.io/npm/v/gatsby-styled-components-dark-mode/latest)
+![npm (tag)](https://img.shields.io/npm/v/gatsby-styled-components-dark-mode/next)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+
+## About
+
+A Gatsby plugin that handles injecting a dark and light theme using styled components.
+
+- Exposes React hook for toggling between dark and light theme
+- Allows for using the system's theme
+- Automatically handles content flash when refreshing the page
+- Persists the state of users' dark options in their browsers
 
 ## Installation
 
 Install the package
 
-`
-    $ npm i gatsby-styled-components-dark-mode
-`
+` $ npm i gatsby-styled-components-dark-mode`
 
 or
 
-`
-    $ yarn add gatsby-styled-components-dark-mode
-`
+` $ yarn add gatsby-styled-components-dark-mode`
 
-Add the plugin to your `gatsby-config.js` 
+Add the plugin to your `gatsby-config.js`
 
 ```javascript
 module.exports = {
@@ -29,12 +32,12 @@ module.exports = {
     {
       resolve: `gatsby-styled-components-dark-mode`,
       options: {
-          light: { mainColor: 'brandyRose'},
-          dark: { mainColor: 'manatee'},
+        light: { mainColor: "brandyRose" },
+        dark: { mainColor: "manatee" },
       },
     },
   ],
-}
+};
 ```
 
 ## Requirements
@@ -42,36 +45,37 @@ module.exports = {
 You must have the following installed in your gatsby project:
 
 - [styled-components](https://www.styled-components.com/)
-    - Use this [plugin](https://www.gatsbyjs.org/packages/gatsby-plugin-styled-components/?=gatsby%20styled%20com) for gatsby integration
-    
+  - Use this [plugin](https://www.gatsbyjs.org/packages/gatsby-plugin-styled-components/?=gatsby%20styled%20com) for gatsby integration
+
 ## How to Use
 
 The plugin expects **two** options in your `gatsby-config.js` file:
 
 ```javascript
-light: object
-dark: object
+light: object;
+dark: object;
 ```
 
-These objects are defined by *you* in your project, so you have full control over your styling. Everything else is handled for you.
+These objects are defined by _you_ in your project, so you have full control over your styling. Everything else is handled for you.
 
 in a presumed `src/theme.js`
+
 ```javascript
 export const darkTheme = {
-    mainColor: 'topaz',
-    secondaryColor: 'ruby',
-}
+  mainColor: "topaz",
+  secondaryColor: "ruby",
+};
 
 export const lightTheme = {
-    mainColor: 'pampas',
-    secondaryColor: 'ruby',
-    buttonColor: 'shadyLady',
-    // Note both themes don't necessary have to match (you'll probably want them to though)
-}
-
+  mainColor: "pampas",
+  secondaryColor: "ruby",
+  buttonColor: "shadyLady",
+  // Note both themes don't necessary have to match (you'll probably want them to though)
+};
 ```
 
 in `gatsby-config.js`
+
 ```javascript
 module.exports = {
   plugins: [
@@ -83,7 +87,7 @@ module.exports = {
       },
     },
   ],
-}
+};
 ```
 
 ### Multiple files
@@ -91,26 +95,29 @@ module.exports = {
 You may want to keep your themes separate, thus you could do the following:
 
 in `src/darkTheme.js`
+
 ```javascript
 const darkTheme = {
-    mainColor: 'topaz',
-    secondaryColor: 'ruby',
-}
+  mainColor: "topaz",
+  secondaryColor: "ruby",
+};
 
 export default darkTheme;
 ```
 
 in `src/lightTheme.js`
+
 ```javascript
 const lightTheme = {
-    mainColor: 'pampas',
-    buttonColor: 'shadyLady',
-}
+  mainColor: "pampas",
+  buttonColor: "shadyLady",
+};
 
-export default lightTheme
+export default lightTheme;
 ```
 
 in `gatsby-config.js`
+
 ```javascript
 module.exports = {
   plugins: [
@@ -122,90 +129,106 @@ module.exports = {
       },
     },
   ],
-}
+};
 ```
 
 ### Accessing the styles
 
-We can now utilize the power of styled-components. Any component wrapped in a `styled` or `css` has access to your theme!
+We can now utilize the power of styled-components. Any component wrapped in a `styled` or `css` has access to your theme.
 
-in a component
+#### Inside of styled's template string `props`
+
 ```javascript
 const MyLightOrDarkStyledComponent = styled.div`
-    background-color: ${props => props.theme.mainColor};
-    color: ${props => props.theme.secondaryColor};
-`
+  background-color: ${(props) => props.theme.mainColor};
+  color: ${(props) => props.theme.secondaryColor};
+`;
 ```
 
-or
+#### Using styled's `withTheme` higher-order component
 
 ```javascript
-
 const MyThemedUpComponent = withTheme((props) => (
-    <div styles={{ color: props.theme.mainColor }}>Hello world</div>
-))
+  <div styles={{ color: props.theme.mainColor }}>Hello world</div>
+));
+```
 
-// I don't recommend this approach unless you really have/want to
+#### Using styled's `ThemeContext` to use as a hook
+
+```javascript
+import { ThemeContext } from "styled-components"
+
+const MyThemedUpComponent = () => (
+  const theme =  useContext(ThemeContext)
+
+  <div styles={{ color: theme.mainColor }}>Hello world</div>
+);
 ```
 
 In `theme` you'll also have access to `isDark`
 
-So you could do conditionally styling *inside* your styled components if you wanted to
+So you could do conditionally styling _inside_ your styled components if you wanted to
 
 ```javascript
 const MyLightOrDarkStyledComponent = styled.div`
-    color: ${props => props.theme.isDark ? props.theme.darkColor : props.theme.lightColor};
-`
+  color: ${(props) =>
+    props.theme.isDark ? props.theme.darkColor : props.theme.lightColor};
+`;
 ```
 
 ### Toggling the theme
 
 Somewhere in your app, you'll want to provide functionality to actually change the theme from one theme to the other, or to respect the current system dark mode setting.
 
-The plugin exposes this functionality through `ThemeManagerContext`
+The plugin exposes this functionality through a hook `useStyledDarkMode`:
 
-Consuming the context will get you access to
+#### `useStyledDarkMode` hook
 
-| prop | type | description |
-| --- | --- | --- |
-| isDark | boolean | state that describes if your app is in dark mode or not |
-| toggleDark | (value?: boolean) => void | function that toggles dark/light mode |
-| themeSetting | ThemeSetting | the current theme setting - either LIGHT, DARK or SYSTEM |
-| changeThemeSetting | (setting: ThemeSetting) => void | function that allows setting dark mode, light mode or system-setting mode |
+| prop               | type                            | description                                                                                                                                                                               |
+| ------------------ | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| isDark             | boolean?                        | State that describes if your app is in dark mode or not. Notice this can be undefined since we don't know `isDark` until the provider can parse the initial styles after the first paint. |
+| toggleDark         | (value?: boolean) => void       | Function that toggles dark/light mode.                                                                                                                                                    |
+| themeSetting       | ThemeSetting                    | The current theme setting - either `ThemeSetting.LIGHT`, `ThemeSetting.DARK` or `ThemeSetting.SYSTEM`                                                                                     |
+| changeThemeSetting | (setting: ThemeSetting) => void | Function that allows setting dark mode, light mode or system-setting mode                                                                                                                 |
 
 #### Example - light/dark mode toggle
 
 in a presumed `src/component/layout.tsx`
-```javascript
-import { ThemeManagerContext } from "gatsby-styled-components-dark-mode"
 
-export const Layout = (props) => {
-  const themeContext = useContext(ThemeManagerContext)
+```javascript
+import { useStyledDarkMode } from "gatsby-styled-components-dark-mode";
+
+export const Layout = () => {
+  const { isDark, toggleDark } = useStyledDarkMode();
 
   return (
     <div>
       <label>
         <input
           type="checkbox"
-          onChange={() => themeContext.toggleDark()}
-          checked={themeContext.isDark}
-        />{" "}
+          onChange={() => toggleDark()}
+          checked={!!isDark}
+        />
         Dark mode
       </label>
     </div>
-  )
-}
+  );
+};
 ```
 
 #### Example - light/dark/system mode toggle
 
 in a presumed `src/component/layout.tsx`
-```javascript
-import { ThemeManagerContext, ThemeSetting } from "gatsby-styled-components-dark-mode"
 
-export const Layout = (props) => {
-  const themeContext = useContext(ThemeManagerContext)
-  const onThemeSettingChanged = (ev) => themeContext.changeThemeSetting(ev.target.value)
+```javascript
+import {
+  useStyledDarkMode,
+  ThemeSetting,
+} from "gatsby-styled-components-dark-mode";
+
+export const Layout = () => {
+  const { changeThemeSetting, themeSetting } = useStyledDarkMode();
+  const onThemeSettingChanged = (ev) => changeThemeSetting(ev.target.value);
 
   return (
     <div>
@@ -214,64 +237,46 @@ export const Layout = (props) => {
           type="radio"
           value={ThemeSetting.LIGHT}
           onChange={onThemeSettingChanged}
-          checked={themeContext.themeSetting == ThemeSetting.LIGHT}
-        />{" "}
+          checked={themeSetting == ThemeSetting.LIGHT}
+        />
         Light mode
       </label>
-      <br/>
+      <br />
       <label>
         <input
           type="radio"
           value={ThemeSetting.DARK}
           onChange={onThemeSettingChanged}
-          checked={themeContext.themeSetting == ThemeSetting.DARK}
-        />{" "}
+          checked={themeSetting == ThemeSetting.DARK}
+        />
         Dark mode
       </label>
-      <br/>
+      <br />
       <label>
         <input
           type="radio"
           value={ThemeSetting.SYSTEM}
           onChange={onThemeSettingChanged}
-          checked={themeContext.themeSetting == ThemeSetting.SYSTEM}
-        />{" "}
+          checked={themeSetting == ThemeSetting.SYSTEM}
+        />
         Use system setting
       </label>
     </div>
-  )
-}
-```
-
-And that's really all there is to it
-
-Notice you'll also get `isDark`, so you can conditionally render components like so:
-
-```javascript
-import { ThemeManagerContext } from "gatsby-styled-components-dark-mode"
-
-export const Layout = (props) => {
-  const themeContext = useContext(ThemeManagerContext)
-
-  return (
-    <div>
-        {themeContext.isDark ? <div>dark component</div> : <div>other component</div>}
-    </div>
-  )
-}
+  );
+};
 ```
 
 ### Global Styling
 
 Until further notice, global styling requires a tad bit more overhead due to what styled-components' api offers.
 
-Keep in mind, this is *not* required.
+Keep in mind, this is _not_ required, but is probably needed for theming.
 
 Your theme already knows if it's dark/light so all you have to do is pass the theme object to a `createGlobalStyle` function
 
 Check [the docs](https://www.styled-components.com/docs/api#createglobalstyle) for more info
 
-#### Usage 
+#### Usage
 
 in a presumed `src/theme.js`
 
@@ -282,46 +287,48 @@ export const GlobalStyle = createGlobalStyle`
   }
   
   body {
-    background-color: rgb(${props => props.theme.global.bg});
-    color: rgb(${props => props.theme.global.color});
+    background-color: rgb(${(props) => props.theme.global.bg});
+    color: rgb(${(props) => props.theme.global.color});
   }
   
   a {
-    color: rgb(${props => props.theme.global.link});
+    color: rgb(${(props) => props.theme.global.link});
   }
   
   a:hover {
-    color: rgb(${props => props.theme.global.linkHover});
+    color: rgb(${(props) => props.theme.global.linkHover});
   }
   
   blockquote {
     color: inherit;
     border-left-color: inherit;
   }
-`
+`;
 ```
 
 You'll probably want to render this in your root - `layout.jsx` is a good place to start
 
 in `src/layout.jsx`
-```javascript
-import { GlobalStyle } from "./theme"
 
-export const Layout = withTheme((props) => {
+```javascript
+import { ThemeContext } from "styled-components";
+import { GlobalStyle } from "./theme";
+
+export const Layout = () => {
+  const theme = useContext(ThemeContext);
   return (
     <div>
-        <GlobalStyle theme={props.theme} /> 
-        // content
+      <GlobalStyle theme={theme} />
+      // content
     </div>
-  )
-})
+  );
+};
 ```
-
-Notice we use `withTheme` to grab the theme object itself and pass it to the global stylesheet
 
 ## Full Example
 
 `gatsby-config.js`
+
 ```javascript
 module.exports = {
   plugins: [
@@ -333,12 +340,13 @@ module.exports = {
       },
     },
   ],
-}
+};
 ```
 
 `src/theme.js`
+
 ```javascript
-import { createGlobalStyle } from "styled-components"
+import { createGlobalStyle } from "styled-components";
 
 // I'm using rgb numbers here for easily using rgba styling throughout the app
 // You can put hexcodes, names, or any other definitions that fits the context of your app
@@ -352,7 +360,7 @@ const colorPalette = {
   success: "95, 153, 81",
   warning: "221, 136, 25",
   error: "244, 67, 54",
-}
+};
 
 const baseTheme = {
   actions: {
@@ -369,7 +377,7 @@ const baseTheme = {
     lightShades: colorPalette.lightShades,
     mainBrand: colorPalette.mainBrand,
   },
-}
+};
 
 export const darkTheme = {
   ...baseTheme,
@@ -379,7 +387,7 @@ export const darkTheme = {
     link: colorPalette.mainBrand,
     linkHover: colorPalette.lightAccent,
   },
-}
+};
 
 export const lightTheme = {
   ...baseTheme,
@@ -389,103 +397,91 @@ export const lightTheme = {
     link: colorPalette.mainBrand,
     linkHover: colorPalette.darkAccent,
   },
-}
+};
 
 export const GlobalStyle = createGlobalStyle`
   html, body {
     height: 100%; 
   }
   body {
-    background-color: rgb(${props => props.theme.global.bg});
-    color: rgb(${props => props.theme.global.color});
+    background-color: rgb(${(props) => props.theme.global.bg});
+    color: rgb(${(props) => props.theme.global.color});
     
     transition: background 0.2s ease-out;
   }
   
   a {
-    color: rgb(${props => props.theme.global.link});
+    color: rgb(${(props) => props.theme.global.link});
   }
   
   a:hover {
-    color: rgb(${props => props.theme.global.linkHover});
+    color: rgb(${(props) => props.theme.global.linkHover});
   }
-`
+`;
 ```
 
-
 `src/layout.js`
+
 ```javascript
-import { ThemeManagerContext } from "gatsby-styled-components-dark-mode"
-import React, { useContext } from "react"
-import styled, { withTheme } from "styled-components"
-import { GlobalStyle } from "./theme"
+import { useStyledDarkMode } from "gatsby-styled-components-dark-mode";
+import React, { useContext } from "react";
+import styled, { ThemeContext } from "styled-components";
+import { GlobalStyle } from "./theme";
 
 const MainHeading = styled.h2`
-  color: rgb(${props => props.theme.palette.mainBrand});
-`
+  color: rgb(${(props) => props.theme.palette.mainBrand});
+`;
 
-export const Layout = withTheme((props) => {
-  const { children, theme } = props
-  
-  const themeContext = useContext(ThemeManagerContext)
+export const Layout = (props) => {
+  const theme = useContext(ThemeContext);
+  const { isDark, toggleDark } = useStyledDarkMode();
 
   return (
     <div>
       <GlobalStyle theme={theme} />
       <header>
         <MainHeading>
-          <a href={'#'}>Gatsby Dark Theme</a>
+          <a href={"#"}>Gatsby Dark Theme</a>
         </MainHeading>
         <div>
           <label>
             <input
               type="checkbox"
-              onChange={() => themeContext.toggleDark()}
-              checked={themeContext.isDark}
+              onChange={() => toggleDark()}
+              checked={!!isDark}
             />{" "}
             Dark mode
           </label>
         </div>
       </header>
-      <main>{children}</main>
+      <main>{props.children}</main>
     </div>
-  )
-})
-```
-
-### Set Dark Mode as default
-
-In case you want to set the dark mode as your default theme, follow the
-following example.
-
-`src/layout.js`
-```javascript
-import { ThemeManagerContext } from "gatsby-styled-components-dark-mode"
-import React, { useContext, useEffect } from "react"
-import styled, { withTheme } from "styled-components"
-
-export const Layout = withTheme((props) => {
-  const themeContext = useContext(ThemeManagerContext)
-
-  // Add this line
-  useEffect(() => themeContext.toggleDark(true), [])
-
-  return (
-    ...
-  )
-})
+  );
+};
 ```
 
 ### Typescript Example
+
 https://github.com/gperl27/website
-    
+
+## Contributing
+
+This project uses [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) and leverages [semantic release](https://github.com/semantic-release/semantic-release) for versioning and distribution. It uses these tools out of the box.
+
+### Distribution channels
+
+- `@latest`
+  - Reflects current code in the `master` branch
+- `@next`
+  - Reflects current code in the `next` branch
+
 ## Roadmap
 
 - ~~typescript~~
 
 - hot-reload
 
-Currently, when changing a theme, the app will recompile but *will not* hot reload. You have to do a full page-refresh to see your theming changes.
+Currently, when changing a theme, the app will recompile but _will not_ hot reload. You have to do a full page-refresh to see your theming changes.
 
 - improved global styling
 
