@@ -178,18 +178,16 @@ const MyLightOrDarkStyledComponent = styled.div`
 
 ### Toggling the theme
 
-Somewhere in your app, you'll want to provide functionality to actually change the theme from one theme to the other, or to respect the current system dark mode setting.
-
-The plugin exposes this functionality through a hook `useStyledDarkMode`:
+Somewhere in your app, you may want to provide functionality to change the theme from one theme to the other, or to respect the current system's theme setting. Note that the plugin will use the user's system theme out of the box. If this is your use case, you don't need to write any more code.
 
 #### `useStyledDarkMode` hook
 
-| prop               | type                            | description                                                                                                                                                                               |
-| ------------------ | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| isDark             | boolean?                        | State that describes if your app is in dark mode or not. Notice this can be undefined since we don't know `isDark` until the provider can parse the initial styles after the first paint. |
-| toggleDark         | (value?: boolean) => void       | Function that toggles dark/light mode.                                                                                                                                                    |
-| themeSetting       | ThemeSetting                    | The current theme setting - either `ThemeSetting.LIGHT`, `ThemeSetting.DARK` or `ThemeSetting.SYSTEM`                                                                                     |
-| changeThemeSetting | (setting: ThemeSetting) => void | Function that allows setting dark mode, light mode or system-setting mode                                                                                                                 |
+| prop               | type                            | default               | description                                                                                                                                                                               |
+| ------------------ | ------------------------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| isDark             | boolean?                        | `undefined`           | State that describes if your app is in dark mode or not. Notice this can be undefined since we don't know `isDark` until the provider can parse the initial styles after the first paint. |
+| toggleDark         | (value?: boolean) => void       | n/a                   | Function that toggles dark/light mode.                                                                                                                                                    |
+| themeSetting       | ThemeSetting                    | `ThemeSetting.SYSTEM` | The current theme setting - either `ThemeSetting.LIGHT`, `ThemeSetting.DARK` or `ThemeSetting.SYSTEM`                                                                                     |
+| changeThemeSetting | (setting: ThemeSetting) => void | n/a                   | Function that allows setting dark mode, light mode or system-setting mode                                                                                                                 |
 
 #### Example - light/dark mode toggle
 
