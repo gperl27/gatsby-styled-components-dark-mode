@@ -158,11 +158,11 @@ const MyThemedUpComponent = withTheme((props) => (
 ```javascript
 import { ThemeContext } from "styled-components"
 
-const MyThemedUpComponent = () => (
+const MyThemedUpComponent = () => {
   const theme =  useContext(ThemeContext)
 
-  <div styles={{ color: theme.mainColor }}>Hello world</div>
-);
+  return <div styles={{ color: theme.mainColor }}>Hello world</div>
+};
 ```
 
 In `theme` you'll also have access to `isDark`
